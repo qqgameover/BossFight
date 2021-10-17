@@ -42,20 +42,20 @@ namespace BossFight
 
         public void UseItem()
         {
-            var item = ItemList.FirstOrDefault();
-            if (item.ItemType == "HealthPotion")
+            var item = ItemList.FirstOrDefault().ItemType;
+            if (item == "HealthPotion")
             {
                 Health += 30;
                 Console.WriteLine($"The hero used a Health potion, their health is now {Health}");
             }
 
-            if (item.ItemType == "stm potion")
+            if (item == "stm potion")
             {
                 Stamina += 20;
                 Console.WriteLine($"The hero used a stamina potion, their stamina is now {Stamina}");
             }
 
-            if (item.ItemType == "str potion")
+            if (item == "str potion")
             {
                 Strength += 30;
                 Console.WriteLine($"The hero used a str potion, their attack is empowered for one round");
