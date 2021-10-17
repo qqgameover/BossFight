@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 
 namespace BossFight
@@ -10,6 +11,8 @@ namespace BossFight
         {
             var heroGame = new GameChar("Hero", 100, 20, 40);
             var bossGame = new GameChar("Boss", 400, 30, 10);
+            var count = 0;
+            var emergency = false;
 
             while (true)
             {
@@ -17,11 +20,28 @@ namespace BossFight
                 if (command == "fight" && heroGame.Stamina >= 10)
                 {
                     heroGame.Fight(bossGame);
+                    count++;
+                    if (heroGame.Health < 30)
+                    {
+                        emergency = true;
+                        heroGame.ItemList[0] = new Item(0);
+                        heroGame.UseItem();
+                    }
+                    if(count == 3)
+                    {
+                        if (!emergency)
+                        {
+                            heroGame.UseItem();
+                            heroGame.Strength = 30;
+                            count = 0;
+                        }
+                    }
                 }
                 else
                 {
                     heroGame.Rest();
                 }
+                emergency = false;
                 Thread.Sleep(500);
                 if (bossGame.Health <= 0)
                 {
